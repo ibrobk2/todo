@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "aisha");
+include "connection.php";
 
 //ADD TODO SECTION
 if(isset($_POST['btn'])){
@@ -14,6 +14,20 @@ if(isset($_POST['btn'])){
     }
 }
 
+//DELETE SECTION
 
+if(isset($_GET['delete'])){
+    echo $id = $_GET['delete'];
+
+    $sql = "DELETE FROM todo WHERE id=$id";
+    // $result = mysqli_query($conn, $sql);
+    $result = $conn->query($sql);
+
+    if($result){
+        header("Location: index.php?del=successful");
+    }
+    
+
+}
 
 ?>

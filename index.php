@@ -1,3 +1,13 @@
+<?php
+if(isset($_GET['del'])){
+    echo "<script>
+        alert('Deleted Successful...');
+    </script>";
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,6 +96,11 @@
         .btn{
             padding:8px;
         }
+
+        a:link, a:visited{
+            color: white;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -106,18 +121,19 @@
                 </thead>
                 <tbody>
                     <?php
-                        $conn = mysqli_connect("localhost", "root", "", "aisha");
-                    
+                       // $conn = mysqli_connect("localhost", "root", "", "aisha");
+                       $sn=1; 
+                       include "connection.php";
                         $sql = "SELECT * FROM todo";
                         $res = mysqli_query($conn, $sql);
 
-                        while($row = mysqli_fetch_assoc($res)){
+                        while($row = $res->fetch_assoc()){
                     ?>
                     <tr>
-                        <td><?php echo $row['id']; ?></td>
+                        <td><?php echo $sn++; ?></td>
                         <td><?php echo $row['todo']; ?></td>
-                        <td><a href="#"><button class="btn"><i class="las la-edit"></i>Edit</button></a></td>
-                        <td><a href="#"><button class="btn"id="del"><i class="las la-trash-alt"></i>Delete</button></a></td>
+                        <td><button class="btn"><i class="las la-edit"><a href="index.php?edit=<?=$row['id'];  ?>"></i>Edit</a></button></td>
+                        <td><button class="btn"id="del"><a href="process.php?delete=<?=$row['id'];  ?>"><i class="las la-trash-alt"></i>Delete</a></button></td>
                        
                     </tr>
 
@@ -129,3 +145,4 @@
     </div>
 </body>
 </html>
+
